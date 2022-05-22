@@ -29,15 +29,13 @@
 #include <stdlib.h>
 #include <limits.h>
 
-struct Queue
-{
+struct Queue {
 	int front, rear, size;
 	unsigned capacity;
 	int* array;
 };
 
-struct Queue* createQueue(unsigned capacity)
-{
+struct Queue* createQueue(unsigned capacity) {
 	struct Queue* queue = (struct Queue*)malloc(sizeof(struct Queue));
 	queue->capacity = capacity;
 	queue->front = queue->size = 0;
@@ -46,15 +44,12 @@ struct Queue* createQueue(unsigned capacity)
 	return queue;
 }
 
-int isFull(struct Queue* queue)
-{
+int isFull(struct Queue* queue) {
 	return (queue->size == queue->capacity);
 }
 
-void enqueue(struct Queue* queue, int item)
-{
-	if (isFull(queue))
-	{
+void enqueue(struct Queue* queue, int item) {
+	if (isFull(queue)) {
 		return;
 	}
 	queue->rear = (queue->rear + 1)%queue->capacity;
@@ -63,15 +58,12 @@ void enqueue(struct Queue* queue, int item)
 	printf("%d enqueued to queue\n", item);
 }
 
-int isEmpty(struct Queue* queue)
-{
+int isEmpty(struct Queue* queue) {
 	return (queue->size == 0);
 }
 
-int dequeue(struct Queue* queue)
-{
-	if (isEmpty(queue))
-	{
+int dequeue(struct Queue* queue) {
+	if (isEmpty(queue)) {
 		return INT_MIN;
 	}
 	int item = queue->array[queue->front];
@@ -80,35 +72,33 @@ int dequeue(struct Queue* queue)
 	return item;
 }
 
-int front(struct Queue* queue)
-{
-	if (isEmpty(queue))
-	{
+int front(struct Queue* queue) {
+	if (isEmpty(queue)) {
 		return INT_MIN;
 	}
 	return queue->array[queue->front];
 }
 
-int rear(struct Queue* queue)
-{
-	if (isEmpty(queue))
-	{
+int rear(struct Queue* queue) {
+	if (isEmpty(queue)) {
 		return INT_MIN;
 	}
 	return queue->array[queue->rear];
 }
 
-int main()
-{
+int main() {
 	struct Queue* queue = createQueue(100);
+	
 	enqueue(queue, 10);
 	enqueue(queue, 20);
 	enqueue(queue, 30);
 	enqueue(queue, 40);
+	
 	printf("Dequeued %d\n", dequeue(queue));
 	printf("Front: %d\n", front(queue));
 	printf("Rear: %d\n", rear(queue));
 
 	return 0;
 }
+
 
