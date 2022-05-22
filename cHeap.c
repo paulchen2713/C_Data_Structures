@@ -29,23 +29,20 @@
 #include <stdlib.h>
 
 int c, heapsize;
-void max_heapify(int a[], int i)
-{
+void max_heapify(int a[], int i) {
 	int l, r, largest, temp;
 	l = 2 * i;
 	r = 2 * i + 1;
-	if (l <= heapsize && a[l] > a[i])
-	{
+	if (l <= heapsize && a[l] > a[i]) {
 		largest = l;
 	}
-	else
-	{
+	else {
 		largest = i;
 	}
-	if (r <= heapsize && a[r] > a[largest])
+	if (r <= heapsize && a[r] > a[largest]) {
 		largest = r;
-	if (largest != i)
-	{
+	}
+	if (largest != i) {
 		temp = a[largest];
 		a[largest] = a[i];
 		a[i] = temp;
@@ -53,20 +50,18 @@ void max_heapify(int a[], int i)
 	}
 }
 
-void build_max_heap(int a[])
-{
+void build_max_heap(int a[]) {
 	int i;
-	for (i = c/2; i >= 1; i--)
+	for (i = c/2; i >= 1; i--) {
 		max_heapify(a, i);
+	}
 }
 
-int maximum(int a[])
-{
+int maximum(int a[]) {
 	return a[1];
 }
 
-int extract_max(int a[])
-{
+int extract_max(int a[]) {
 	int max, temp;
 	max = a[1];
 	temp = a[1];
@@ -77,22 +72,23 @@ int extract_max(int a[])
 	return max;
 }
 
-
-int main()
-{
+int main() {
 	int i, val, num;
-	int a[11] = {0,4,13,2,16, 9, 10, 14, 8, 7};
+	int a[11] = {0, 4, 13, 2, 16, 9, 10, 14, 8, 7};
+	
 	heapsize = c = 10;
 	build_max_heap(a);
 	val = maximum(a);
+	
 	printf("\n\n maximum value = %d", val);
 	printf("\n display element of max heap priority queue");
-	for (i = 1; i <= c; i++)
-	{
+	for (i = 1; i <= c; i++) {
 		printf("%d ", a[i]);
 		val = extract_max(a);
 		printf("\n extract maximum value = %d", val);
 	}
 	return 0;
 }
+
+
 
