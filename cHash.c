@@ -30,8 +30,7 @@
 
 #define SIZE 10
 
-struct Item
-{
+struct Item {
 	int data;
 	int key;
 };
@@ -40,18 +39,14 @@ struct Item* hashArray[SIZE];
 struct Item* d_Item;
 struct Item* item;
 
-int hashCode(int key)
-{
+int hashCode(int key) {
 	return key % SIZE;
 }
 
-struct Item *search(int key)
-{
+struct Item *search(int key) {
 	int hashvalue = hashCode(key);
-	while(hashArray[hashvalue] != NULL)
-	{
-		if (hashArray[hashvalue]->key == key)
-		{
+	while(hashArray[hashvalue] != NULL) {
+		if (hashArray[hashvalue]->key == key) {
 			return hashArray[hashvalue];
 		}
 		hashvalue++;
@@ -60,14 +55,12 @@ struct Item *search(int key)
 	return NULL;
 }
 
-void insert(int key, int data)
-{
+void insert(int key, int data) {
 	struct Item* item = (struct Item*)malloc(sizeof(struct Item));
 	item->data = data;
 	item->key = key;
 	int hashvalue = hashCode(key);
-	while (hashArray[hashvalue] != NULL && hashArray[hashvalue]->key != -1)
-	{
+	while (hashArray[hashvalue] != NULL && hashArray[hashvalue]->key != -1) {
 		++hashvalue;
 		hashvalue %= SIZE;
 	}
@@ -78,10 +71,8 @@ void insert(int key, int data)
 struct Item* delete_item(struct Item* item) {
 	int key = item->key;
 	int hashvalue = hashCode(key);
-	while (hashArray[hashvalue] != NULL)
-	{
-		if (hashArray[hashvalue]->key == key)
-		{
+	while (hashArray[hashvalue] != NULL) {
+		if (hashArray[hashvalue]->key == key) {
 			struct Item* temp = hashArray[hashvalue];
 			hashArray[hashvalue] = d_Item;
 			return temp;
@@ -92,41 +83,33 @@ struct Item* delete_item(struct Item* item) {
 	return NULL;
 }
 
-int main()
-{
+int main() {
 	d_Item = (struct Item*)malloc(sizeof(struct Item));
 	d_Item->data = -1;
 	d_Item->key = -1;
-	insert(1, 20); insert(2, 70);
+	
+	insert(1, 20);  insert(2, 70);
 	insert(42, 80); insert(4,25);
 	insert(12, 44); insert(14, 32);
 	insert(17, 11); insert(13, 78);
 	insert(37, 97); insert(1, 1);
-
-
+	
 	item = search(37);
-	if (item != NULL)
-	{
+	if (item != NULL) {
 		printf("Element found: %d\n", item->data);
 	}
-	else
-	{
+	else if (item == NULL) {
 		printf("Element not found\n");
 	}
+	
 	delete_item(item);
 	item = search(37);
-	if (item != NULL)
-	{
+	if (item != NULL) {
 		printf("Element found: %d", item->data);
 	}
-	else
-	{
+	else if (item == NULL) {
 		printf("Element not found\n");
 	}
-
 	return 0;
 }
-
-
-
 
