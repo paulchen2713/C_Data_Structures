@@ -13,6 +13,7 @@ public:
     };
     void AddEdgeList(int from, int to);
     void BFS(int Start);
+    
 private:
     int num_vertex;
     std::vector<std::list<int>> AdjList;
@@ -82,3 +83,7 @@ int main() {
     g1.BFS(2);    
     return 0;
 }
+
+
+
+
