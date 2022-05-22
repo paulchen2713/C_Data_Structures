@@ -28,15 +28,13 @@
 #include <stdlib.h>
 #include <limits.h>
 
-struct node
-{
+struct node {
 	int data;
 	struct node *left;
 	struct node *right;
 };
 
-struct node* create(int data)
-{
+struct node* create(int data) {
 	struct node* node = (struct node*)malloc(sizeof(struct node));
 	node->data = data;
 	node->left = NULL;
@@ -44,10 +42,8 @@ struct node* create(int data)
 	return(node);
 }
 
-void postorder(struct node* node)
-{
-	if (node == NULL)
-	{
+void postorder(struct node* node) {
+	if (node == NULL) {
 		return;
 	}
 	postorder(node->left);
@@ -55,10 +51,8 @@ void postorder(struct node* node)
 	printf("%d ", node->data);
 }
 
-void inorder(struct node* node)
-{
-	if (node == NULL)
-	{
+void inorder(struct node* node) {
+	if (node == NULL) {
 		return;
 	}
 	inorder(node->left);
@@ -66,10 +60,8 @@ void inorder(struct node* node)
 	inorder(node->right);
 }
 
-void preorder(struct node* node)
-{
-	if (node == NULL)
-	{
+void preorder(struct node* node) {
+	if (node == NULL) {
 		return;
 	}
 	printf("%d ", node->data);
@@ -77,18 +69,21 @@ void preorder(struct node* node)
 	preorder(node->right);
 }
 
-int main()
-{
+int main() {
 	struct node *root = create(1);
 	root->left = create(2);
 	root->right = create(3);
 	root->left->left = create(4);
+	
 	printf("\nProrder ");
 	preorder(root);
+	
 	printf("\nInorder ");
 	inorder(root);
+	
 	printf("\nPostorder ");
 	postorder(root);
 
 	return 0;
 }
+
