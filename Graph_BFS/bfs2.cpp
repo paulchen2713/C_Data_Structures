@@ -10,10 +10,9 @@ using namespace std;
 // adjacency list representation
 class Graph {
     int V;    // No. of vertices
- 
-    // Pointer to an array containing adjacency
-    // lists
+    // Pointer to an array containing adjacency lists
     list<int> *adj;  
+ 
 public:
     Graph(int V);  // Constructor
  
@@ -24,23 +23,21 @@ public:
     void BFS(int s); 
 };
  
-Graph::Graph(int V)
-{
+Graph::Graph(int V) {
     this->V = V;
     adj = new list<int>[V];
 }
  
-void Graph::addEdge(int v, int w)
-{
+void Graph::addEdge(int v, int w) {
     adj[v].push_back(w); // Add w to v’s list.
 }
  
-void Graph::BFS(int s)
-{
+void Graph::BFS(int s) {
     // Mark all the vertices as not visited
     bool *visited = new bool[V];
-    for(int i = 0; i < V; i++)
+    for (int i = 0; i < V; i++) {
         visited[i] = false;
+    }
  
     // Create a queue for BFS
     list<int> queue;
@@ -53,8 +50,7 @@ void Graph::BFS(int s)
     // vertices of a vertex
     list<int>::iterator i;
  
-    while(!queue.empty())
-    {
+    while(!queue.empty()) {
         // Dequeue a vertex from queue and print it
         s = queue.front();
         cout << s << " ";
@@ -63,10 +59,8 @@ void Graph::BFS(int s)
         // Get all adjacent vertices of the dequeued
         // vertex s. If a adjacent has not been visited,
         // then mark it visited and enqueue it
-        for (i = adj[s].begin(); i != adj[s].end(); ++i)
-        {
-            if (!visited[*i])
-            {
+        for (i = adj[s].begin(); i != adj[s].end(); ++i) {
+            if (!visited[*i]) {
                 visited[*i] = true;
                 queue.push_back(*i);
             }
@@ -75,8 +69,7 @@ void Graph::BFS(int s)
 }
  
 // Driver program to test methods of graph class
-int main()
-{
+int main() {
     // Create a graph given in the above diagram
     Graph g(4);
     g.addEdge(0, 1);
@@ -92,3 +85,5 @@ int main()
  
     return 0;
 }
+
+
