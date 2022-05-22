@@ -29,29 +29,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node
-{
+struct Node {
 	int data;
 	struct Node *next;
 };
 
-void display(struct Node* n)
-{
-	while (n != NULL)
-	{
+void display(struct Node* n) {
+	while (n != NULL) {
 		printf("%d", n->data);
 		n = n->next;
 	}
 }
 
-void findMiddle(struct Node* head)
-{
+void findMiddle(struct Node* head) {
 	struct Node* slow = head;
 	struct Node* fast = head;
-	if (head != NULL)
-	{
-		while (fast != NULL && fast->next != NULL)
-		{
+	if (head != NULL) {
+		while (fast != NULL && fast->next != NULL) {
 			fast = fast->next->next;
 			slow = slow->next;
 		}
@@ -59,13 +53,12 @@ void findMiddle(struct Node* head)
 	}
 }
 
-int main()
-{
+int main() {
 	// Initializing
 	struct Node* head = NULL;
 	struct Node* second = NULL;
 	struct Node* third = NULL;
-
+	
 	head = (struct Node*)malloc(sizeof(struct Node));
 	second = (struct Node*)malloc(sizeof(struct Node));
 	third = (struct Node*)malloc(sizeof(struct Node));
@@ -74,15 +67,18 @@ int main()
 	head->data = 10;
 	second->data = 20;
 	third->data = 30;
-
+	
 	// Linking Nodes
 	head->next = second;
 	second->next = third;
 	third->next = NULL;
-
+	
 	display(head);
 	printf("\n");
 	findMiddle(head);
 	return 0;
 }
+
+
+
 
