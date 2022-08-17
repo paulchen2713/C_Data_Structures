@@ -97,26 +97,26 @@ public:
 };
 
 int main() {
-
+    const int num_elements = 6;
+    
     BinaryTree bin_tree;
     
     srand(time(NULL));
-    for (int i = 0; i < 24; i++) {
+    std::cout << "original values: \n";
+    for (int i = 0; i < num_elements; i++) {
         int rand_val = rand() % 100; // Generate number between 0 to 99
+        std::cout << rand_val << "\n";
         bin_tree.insert(rand_val);
     }
+    std::cout << "\n";
     
-    // bin_tree.insert(20);
-    // bin_tree.insert(10);
-    // bin_tree.insert(22);
-    // bin_tree.insert(17);
-    // bin_tree.insert(21);
-    // bin_tree.insert(11);
-
+    std::cout << "sorted results: \n";
     bin_tree.displayTree();
+    std::cout << "\n";
     
     int val = rand() % 100;
     bin_tree.search(val);
 
     return 0;
 }
+
