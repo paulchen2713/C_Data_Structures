@@ -5,13 +5,12 @@
 
 struct Node {
     int value;
-    Node *left;
-    Node *right;
+    struct Node* left, *right;
 };
 
 class BinaryTree {
 private:
-    Node *root;
+    struct Node *root;
 
 public:
     BinaryTree() {
@@ -19,21 +18,21 @@ public:
     };
 
     void insert(int value) {
-        Node *p = new Node;
-        Node *parent;
+        // struct Node *p = new Node;
+        struct Node* p = (struct Node*)calloc(1, sizeof(struct Node));
+        struct Node* parent;
         
         p->value = value;
-        p->left = NULL;
-        p->right = NULL;
+        p->left = p->right = NULL;
         parent = NULL;
         
         if (is_empty()) {
             root = p;
         } 
         else if (!is_empty()) {
-            Node *ptr;
+            struct Node* ptr;
             ptr = root;
-            while(ptr != NULL) {
+            while (ptr != NULL) {
                 parent = ptr;
                 if (value > ptr->value) {
                     ptr = ptr->right;
@@ -55,7 +54,7 @@ public:
         return search(key, root);
     };
 
-    bool search(int key, Node *ptr) {
+    bool search(int key, struct Node* ptr) {
         if (ptr != NULL) {
             if (key == ptr->value) {
                 std::cout << "Found " << ptr->value << std::endl;
@@ -79,7 +78,7 @@ public:
         displayTree(root);
     }
 
-    void displayTree(Node *ptr) {
+    void displayTree(struct Node* ptr) {
         if (ptr != NULL) {
             displayTree(ptr->left);
             std::cout << ptr->value << std::endl;
@@ -91,7 +90,27 @@ public:
         return root == NULL;
     }
 
-    Node *get_root() {
+    struct Node* get_root() {
+        return root;
+    }
+    
+    struct Node* emptyBST(struct Node* root) {
+        struct Node* temp;
+        
+        if (root != NULL) {
+     
+            // Traverse to left subtree
+            emptyBST(root->left);
+     
+            // Traverse to right subtree
+            emptyBST(root->right);
+     
+            std::cout << "\nReleased node: " << root->value;
+            temp = root;
+     
+            // Require for free memory
+            free(temp);
+        }
         return root;
     }
 };
@@ -101,7 +120,7 @@ int main() {
     
     BinaryTree bin_tree;
     
-    srand(time(NULL));
+    // srand(time(NULL));
     std::cout << "original values: \n";
     for (int i = 0; i < num_elements; i++) {
         int rand_val = rand() % 100; // Generate number between 0 to 99
