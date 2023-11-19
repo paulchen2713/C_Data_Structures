@@ -287,7 +287,6 @@ int main() {
 
     
     freelist(head);
-    free(head);
     return 0;
 }
 
