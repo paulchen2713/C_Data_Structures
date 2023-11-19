@@ -9,8 +9,8 @@ typedef struct Node {
 
 void print_node(node_t* node) {
     printf("val:  %d\n", node->val);
-    printf("addr: 0x%p\n", node);
-    printf("next: 0x%p\n", node->next);
+    printf("addr: 0x%p\n", (void*)node);
+    printf("next: 0x%p\n", (void*)node->next);
 }
 
 node_t* create_new_node(int val) {
@@ -138,6 +138,8 @@ void remove_node(node_t** head, node_t* node_to_remove) {
 }
 
 void remove_node2(node_t** head, int target) {
+    if (*head == NULL) return;
+    
     node_t* node_to_remove = find_node(*head, target);
     if (node_to_remove == NULL) return;
     
@@ -145,14 +147,16 @@ void remove_node2(node_t** head, int target) {
 }
 
 bool hasCycle(node_t* head) {
-    if (head == NULL || head->next == NULL) return false;
-
     node_t* fast = head, *slow = head;
     while (fast != NULL && fast->next != NULL) {
         fast = fast->next->next;
         slow = slow->next;
-        if (fast == slow) return true;
+        if (fast == slow) {
+            printf("has cycle!\n");
+            return true;
+        }
     }
+    printf("no cycle!\n");
     return false;
 }
 
@@ -202,7 +206,7 @@ void seplist(node_t** head, int mode) {
     int val = 0;
     while (temp != NULL) {
         val = temp->val;
-        if (val & 1) {  // odd
+        if (val & 1) {  // it's odd 
             if (oddfirst == NULL) {
                 oddfirst = temp;
                 oddlast = oddfirst;
@@ -212,7 +216,7 @@ void seplist(node_t** head, int mode) {
                 oddlast = oddlast->next;
             }
         }
-        else {
+        else {  // it's even
             if (evenfirst == NULL) {
                 evenfirst = temp;
                 evenlast = evenfirst;
@@ -245,12 +249,15 @@ int main() {
     const int Len = 25;
     
     node_t* head = create_new_node(33);
+    print_node(head);
+
     node_t* temp = NULL;
     
     for (int i = 0; i < Len; i++) {
         temp = create_new_node(i);
         insert_at_head(&head, temp);
     }
+    print_node(head);
     
     temp = find_node(head, 12);
     printlist(head);
@@ -289,26 +296,4 @@ int main() {
     freelist(head);
     return 0;
 }
-
-/*
-D:\C++\LinkedLists>singly.exe
-found node with value 12
-24 - 23 - 22 - 21 - 20 - 19 - 18 - 17 - 16 - 15 - 14 - 13 - 12 - 11 - 10 - 9 - 8 - 7 - 6 - 5 - 4 - 3 - 2 - 1 - 0 - 33 -
-24 - 23 - 22 - 21 - 20 - 19 - 18 - 17 - 16 - 15 - 14 - 13 - 12 - 77 - 11 - 10 - 9 - 8 - 7 - 6 - 5 - 4 - 3 - 2 - 1 - 0 - 33 -
-24 - 23 - 22 - 21 - 20 - 19 - 18 - 17 - 16 - 15 - 14 - 13 - 77 - 11 - 10 - 9 - 8 - 7 - 6 - 5 - 4 - 3 - 2 - 1 - 0 - 33 -
-found node with value 22
-99 - 99 - 99 - 24 - 23 - 21 - 20 - 19 - 18 - 17 - 16 - 15 - 14 - 13 - 77 - 11 - 10 - 9 - 8 - 7 - 6 - 5 - 4 - 3 - 2 - 1 - 0 - 33 -
-33 - 0 - 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 - 11 - 77 - 13 - 14 - 15 - 16 - 17 - 18 - 19 - 20 - 21 - 23 - 24 - 99 - 99 - 99 -
-33 - 0 - 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 - 11 - 77 - 13 - 14 - 15 - 16 - 17 - 18 - 19 - 20 - 21 - 23 - 24 -
-0 - 2 - 4 - 6 - 8 - 10 - 14 - 16 - 18 - 20 - 24 - 33 - 1 - 3 - 5 - 7 - 9 - 11 - 77 - 13 - 15 - 17 - 19 - 21 - 23 -
-1 - 3 - 5 - 7 - 9 - 11 - 77 - 13 - 15 - 17 - 19 - 21 - 23 -
-33 - 1 - 3 - 5 - 7 - 9 - 11 - 77 - 13 - 15 - 17 - 19 - 21 - 23 - 0 - 2 - 4 - 6 - 8 - 10 - 14 - 16 - 18 - 20 - 24 -
-21 - 23 - 0 - 2 - 4 - 6 - 8 - 10 - 14 - 16 - 18 - 20 - 24 -
-*/
-
-
-
-
-
-
 
